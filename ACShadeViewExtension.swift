@@ -12,15 +12,15 @@ extension UIView {
 
   // 渐变的方向
   enum ShadeDirection: String {
-    case TopToBottom = "0001"
-    case LeftToRight = "0010"
-    case BottomToTop = "0100"
-    case RightToLeft = "1000"
+    case topToBottom = "0001"
+    case leftToRight = "0010"
+    case bottomToTop = "0100"
+    case rightToLeft = "1000"
 
-    case LeftTopToRightBottom = "0011"
-    case RightTopToLeftBottom = "1001"
-    case LeftBottomToRightTop = "0110"
-    case RightBottomToLeftTop = "1100"
+    case leftTopToRightBottom = "0011"
+    case rightTopToLeftBottom = "1001"
+    case leftBottomToRightTop = "0110"
+    case rightBottomToLeftTop = "1100"
   }
   
   /// 根据一个颜色的透明度渐变,默认方向从上到下
@@ -29,7 +29,7 @@ extension UIView {
   /// - parameter fromAlpha: 从什么透明度开始
   /// - parameter toAlpha:   到什么透明度结束
   /// - parameter direction: 渐变的方向
-  func shadeViewWithAlpha(color: UIColor, fromAlpha: CGFloat = 0, toAlpha: CGFloat = 1,direction: ShadeDirection = .TopToBottom) {
+  func ac_shadeView(withColor color: UIColor, fromAlpha: CGFloat = 0, toAlpha: CGFloat = 1, direction: ShadeDirection = .topToBottom) {
     var fromAlpha = fromAlpha
     fromAlpha = max(0, fromAlpha)
     var toAlpha = toAlpha
@@ -38,7 +38,7 @@ extension UIView {
     gradientLayer.colors = [color.withAlphaComponent(fromAlpha).cgColor,color.withAlphaComponent(toAlpha).cgColor]
     self.layoutIfNeeded()
     gradientLayer.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
-    startAndEndPoint(gradientLayer: gradientLayer, direction: direction)
+    ac_startAndEndPoint(gradientLayer, direction: direction)
     self.layer.addSublayer(gradientLayer)
   }
   
@@ -48,8 +48,8 @@ extension UIView {
   /// - parameter fromAlpha: 从什么透明度开始
   /// - parameter ToAlpha:   到什么透明度结束
   /// - parameter direction: 渐变的方向
-  func shadeViewWithRGBAlpha(RGBcolor: String,fromAlpha: CGFloat = 0, toAlpha: CGFloat = 1,direction: ShadeDirection = .TopToBottom) {
-    shadeViewWithAlpha(color: hexStringToColor(RGBcolor), fromAlpha: fromAlpha, toAlpha: toAlpha, direction: direction)
+  func ac_shadeView(WithRGBcolor color: String, fromAlpha: CGFloat = 0, toAlpha: CGFloat = 1, direction: ShadeDirection = .topToBottom) {
+    ac_shadeView(withColor: ac_hexStringToColor(color), fromAlpha: fromAlpha, toAlpha: toAlpha, direction: direction)
   }
   
   
@@ -60,7 +60,7 @@ extension UIView {
   /// - parameter endColor:        结束渐变的颜色
   /// - parameter endColorAlpha:   结束渐变的颜色的透明度
   /// - parameter direction:       渐变的方向
-  func shadeViewWithTwoColor(startColor: UIColor,startColorAlpha: CGFloat = 1,endColor: UIColor,endColorAlpha: CGFloat = 1,direction: ShadeDirection = .TopToBottom) {
+  func ac_shadeView(withStartColor startColor: UIColor, startColorAlpha: CGFloat = 1, endColor: UIColor, endColorAlpha: CGFloat = 1, direction: ShadeDirection = .topToBottom) {
     var startColorAlpha = startColorAlpha
     startColorAlpha = max(0, min(1, startColorAlpha))
     var endColorAlpha = endColorAlpha
@@ -69,7 +69,7 @@ extension UIView {
     gradientLayer.colors = [startColor.withAlphaComponent(startColorAlpha).cgColor,endColor.withAlphaComponent(endColorAlpha).cgColor]
     self.layoutIfNeeded()
     gradientLayer.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
-    startAndEndPoint(gradientLayer: gradientLayer, direction: direction)
+    ac_startAndEndPoint(gradientLayer, direction: direction)
     self.layer.addSublayer(gradientLayer)
   }
   
@@ -81,8 +81,8 @@ extension UIView {
   /// - parameter endColorRGB:     结束渐变的颜色的16进制字符串
   /// - parameter endColorAlpha:   结束渐变的颜色的透明度
   /// - parameter direction:       渐变的方向
-  func shadeViewWithTwoRGBColor(startColorRGB: String,startColorAlpha: CGFloat = 1,endColorRGB: String,endColorAlpha: CGFloat = 1,direction: ShadeDirection = .TopToBottom) {
-    shadeViewWithTwoColor(startColor: hexStringToColor(startColorRGB), startColorAlpha: startColorAlpha, endColor: hexStringToColor(endColorRGB), endColorAlpha: endColorAlpha, direction: direction)
+  func ac_shadeView(withStartColorRGB startColorRGB: String, startColorAlpha: CGFloat = 1, endColorRGB: String, endColorAlpha: CGFloat = 1, direction: ShadeDirection = .topToBottom) {
+    ac_shadeView(withStartColor: ac_hexStringToColor(startColorRGB), startColorAlpha: startColorAlpha, endColor: ac_hexStringToColor(endColorRGB), endColorAlpha: endColorAlpha, direction: direction)
   }
   
   
@@ -90,13 +90,13 @@ extension UIView {
   ///
   /// - parameter colorList: 颜色的数组
   /// - parameter direction: 渐变的方向
-  func shadeViewWithColorList(colorList: [UIColor], direction: ShadeDirection = .TopToBottom){
+  func ac_shadeView(withColorList colorList: [UIColor], direction: ShadeDirection = .topToBottom) {
     let gradientLayer = CAGradientLayer()
     let list = colorList.map({$0.cgColor})
     gradientLayer.colors = list
     self.layoutIfNeeded()
     gradientLayer.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height)
-    startAndEndPoint(gradientLayer: gradientLayer, direction: direction)
+    ac_startAndEndPoint(gradientLayer, direction: direction)
     self.layer.addSublayer(gradientLayer)
   }
   
@@ -105,12 +105,12 @@ extension UIView {
   ///
   /// - parameter colorList: 16进制字符串颜色的数组
   /// - parameter direction: 渐变的方向
-  func shadeViewWithRGBColorList(RGBcolorList: [String], direction: ShadeDirection = .TopToBottom){
-    shadeViewWithColorList(colorList: RGBcolorList.map({hexStringToColor($0)}), direction: direction)
+  func ac_shadeView(withRGBcolorList RGBcolorList: [String], direction: ShadeDirection = .topToBottom) {
+    ac_shadeView(withColorList: RGBcolorList.map({ ac_hexStringToColor($0) }), direction: direction)
   }
   
   // 根据方向计算起点与终点
-  fileprivate func startAndEndPoint(gradientLayer: CAGradientLayer,direction: ShadeDirection){
+  fileprivate func ac_startAndEndPoint(_ gradientLayer: CAGradientLayer,direction: ShadeDirection){
     let str = direction.rawValue
     gradientLayer.startPoint = CGPoint(x: Int(str[str.index(str.startIndex, offsetBy: 0)..<str.index(str.endIndex, offsetBy: -3)]) ?? 0, y: Int(str[str.index(str.startIndex, offsetBy: 1)..<str.index(str.endIndex, offsetBy: -2)]) ?? 0)
     gradientLayer.endPoint = CGPoint(x: Int(str[str.index(str.startIndex, offsetBy: 2)..<str.index(str.endIndex, offsetBy: -1)]) ?? 0, y: Int(str[str.index(str.endIndex, offsetBy: -1)..<str.index(str.endIndex, offsetBy: 0)]) ?? 0)
@@ -119,7 +119,7 @@ extension UIView {
   
   
   // 通过16进制字符串得到颜色
-  fileprivate func hexStringToColor(_ stringToConvert : String, alpha: CGFloat = 1) -> UIColor{
+  fileprivate func ac_hexStringToColor(_ stringToConvert : String, alpha: CGFloat = 1) -> UIColor{
     var cString : String = stringToConvert.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
     // String should be 6 or 8 characters
     

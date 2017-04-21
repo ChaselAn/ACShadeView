@@ -12,40 +12,36 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     let alphaView1 = UIView(frame: CGRect(x: 20, y: 20, width: 100, height: 100))
     view.addSubview(alphaView1)
-    alphaView1.shadeViewWithAlpha(color: UIColor.black)
+    alphaView1.ac_shadeView(withColor: UIColor.black)
     let twoColorView1 = UIView(frame: CGRect(x: 140, y: 20, width: 100, height: 100))
     view.addSubview(twoColorView1)
-    twoColorView1.shadeViewWithTwoColor(startColor: UIColor.red, endColor: UIColor.blue)
+    twoColorView1.ac_shadeView(withStartColor: UIColor.red, endColor: UIColor.blue)
     let colorListView1 = UIView(frame: CGRect(x: 260, y: 20, width: 100, height: 100))
     view.addSubview(colorListView1)
-    colorListView1.shadeViewWithColorList(colorList: [UIColor.red,UIColor.blue,UIColor.green])
+    colorListView1.ac_shadeView(withColorList: [UIColor.red,UIColor.blue,UIColor.green])
     
     let alphaView2 = UIView(frame: CGRect(x: 20, y: 140, width: 100, height: 100))
     view.addSubview(alphaView2)
-    alphaView2.shadeViewWithAlpha(color: UIColor.black,direction: .LeftToRight)
+    alphaView2.ac_shadeView(withColor: UIColor.black, direction: .leftToRight)
     let twoColorView2 = UIView(frame: CGRect(x: 140, y: 140, width: 100, height: 100))
     view.addSubview(twoColorView2)
-    twoColorView2.shadeViewWithTwoColor(startColor: UIColor.red, endColor: UIColor.blue,direction: .LeftToRight)
+    twoColorView2.ac_shadeView(withStartColor: UIColor.red, endColor: UIColor.blue, direction: .leftToRight)
     let colorListView2 = UIView(frame: CGRect(x: 260, y: 140, width: 100, height: 100))
     view.addSubview(colorListView2)
-    colorListView2.shadeViewWithColorList(colorList: [UIColor.red,UIColor.blue,UIColor.green],direction: .LeftToRight)
+    colorListView2.ac_shadeView(withColorList: [UIColor.red,UIColor.blue,UIColor.green], direction: .leftToRight)
     
     let alphaView3 = UIView(frame: CGRect(x: 20, y: 260, width: 100, height: 100))
     view.addSubview(alphaView3)
-    alphaView3.shadeViewWithAlpha(color: UIColor.black,direction: .LeftTopToRightBottom)
+    alphaView3.ac_shadeView(withColor: UIColor.black, direction: .leftTopToRightBottom)
     let twoColorView3 = UIView(frame: CGRect(x: 140, y: 260, width: 100, height: 100))
     view.addSubview(twoColorView3)
-    twoColorView3.shadeViewWithTwoColor(startColor: UIColor.red, endColor: UIColor.blue,direction: .LeftTopToRightBottom)
+    twoColorView3.ac_shadeView(withStartColor: UIColor.red, endColor: UIColor.blue, direction: .leftTopToRightBottom)
     let colorListView3 = UIView(frame: CGRect(x: 260, y: 260, width: 100, height: 100))
     view.addSubview(colorListView3)
-    colorListView3.shadeViewWithColorList(colorList: [UIColor.red,UIColor.blue,UIColor.green],direction: .LeftTopToRightBottom)
-  }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+    colorListView3.ac_shadeView(withColorList: [UIColor.red,UIColor.blue,UIColor.green], direction: .leftTopToRightBottom)
   }
 
 
