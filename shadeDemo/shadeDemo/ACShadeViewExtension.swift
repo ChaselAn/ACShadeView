@@ -11,7 +11,7 @@ import UIKit
 extension UIView {
 
   // 渐变的方向
-  enum ACShadeDirection: String {
+  public enum ACShadeDirection: String {
     case topToBottom = "0001"
     case leftToRight = "0010"
     case bottomToTop = "0100"
@@ -29,7 +29,7 @@ extension UIView {
   /// - parameter fromAlpha: 从什么透明度开始
   /// - parameter toAlpha:   到什么透明度结束
   /// - parameter direction: 渐变的方向
-  func ac_shadeView(withColor color: UIColor, fromAlpha: CGFloat = 0, toAlpha: CGFloat = 1, direction: ACShadeDirection = .topToBottom) {
+  public func ac_shadeView(withColor color: UIColor, fromAlpha: CGFloat = 0, toAlpha: CGFloat = 1, direction: ACShadeDirection = .topToBottom) {
     var fromAlpha = fromAlpha
     fromAlpha = max(0, fromAlpha)
     var toAlpha = toAlpha
@@ -48,7 +48,7 @@ extension UIView {
   /// - parameter fromAlpha: 从什么透明度开始
   /// - parameter ToAlpha:   到什么透明度结束
   /// - parameter direction: 渐变的方向
-  func ac_shadeView(WithRGBcolor color: String, fromAlpha: CGFloat = 0, toAlpha: CGFloat = 1, direction: ACShadeDirection = .topToBottom) {
+  public func ac_shadeView(WithRGBcolor color: String, fromAlpha: CGFloat = 0, toAlpha: CGFloat = 1, direction: ACShadeDirection = .topToBottom) {
     ac_shadeView(withColor: ac_hexStringToColor(color), fromAlpha: fromAlpha, toAlpha: toAlpha, direction: direction)
   }
   
@@ -56,7 +56,7 @@ extension UIView {
   ///
   /// - parameter colorList: 颜色的数组
   /// - parameter direction: 渐变的方向
-  func ac_shadeView(withColorList colorList: [UIColor], direction: ACShadeDirection = .topToBottom) {
+  public func ac_shadeView(withColorList colorList: [UIColor], direction: ACShadeDirection = .topToBottom) {
     let gradientLayer = CAGradientLayer()
     let list = colorList.map({$0.cgColor})
     gradientLayer.colors = list
@@ -71,12 +71,12 @@ extension UIView {
   ///
   /// - parameter colorList: 16进制字符串颜色的数组
   /// - parameter direction: 渐变的方向
-  func ac_shadeView(withRGBcolorList RGBcolorList: [String], direction: ACShadeDirection = .topToBottom) {
+  public func ac_shadeView(withRGBcolorList RGBcolorList: [String], direction: ACShadeDirection = .topToBottom) {
     ac_shadeView(withColorList: RGBcolorList.map({ ac_hexStringToColor($0) }), direction: direction)
   }
   
   // 根据方向计算起点与终点
-  fileprivate func ac_startAndEndPoint(_ gradientLayer: CAGradientLayer,direction: ACShadeDirection){
+  private func ac_startAndEndPoint(_ gradientLayer: CAGradientLayer,direction: ACShadeDirection){
     let str = direction.rawValue
     gradientLayer.startPoint = CGPoint(x: Int(str[str.index(str.startIndex, offsetBy: 0)..<str.index(str.endIndex, offsetBy: -3)]) ?? 0, y: Int(str[str.index(str.startIndex, offsetBy: 1)..<str.index(str.endIndex, offsetBy: -2)]) ?? 0)
     gradientLayer.endPoint = CGPoint(x: Int(str[str.index(str.startIndex, offsetBy: 2)..<str.index(str.endIndex, offsetBy: -1)]) ?? 0, y: Int(str[str.index(str.endIndex, offsetBy: -1)..<str.index(str.endIndex, offsetBy: 0)]) ?? 0)
@@ -85,7 +85,7 @@ extension UIView {
   
   
   // 通过16进制字符串得到颜色
-  fileprivate func ac_hexStringToColor(_ stringToConvert : String, alpha: CGFloat = 1) -> UIColor{
+  private func ac_hexStringToColor(_ stringToConvert : String, alpha: CGFloat = 1) -> UIColor{
     var cString : String = stringToConvert.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
     // String should be 6 or 8 characters
     
